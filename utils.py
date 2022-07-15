@@ -3,9 +3,9 @@ import sqlite3
 
 class Movies:
 
-    def connection_base(self, sqlite_query: str) -> list:
+    def connection_base(self, sqlite_query: str) -> list[dict]:
         """
-        Подключаемся к БД и получаем результат запроса в виде списка кортежей
+        Подключается к БД и получает результат запроса в виде списка словарей
         :param sqlite_query:
         :return:
         """
@@ -20,11 +20,11 @@ class Movies:
                 result_list.append(res_dict)
             return result_list
 
-    def get_by_title(self, title: str) -> dict:
+    def get_by_title(self, title: str) -> list[dict]:
         """
         Получает самый свежий фильм по названию
         :param title:
-        :return: dict
+        :return: list[dict]
         """
         sqlite_query = f"""
                             SELECT title, country, release_year, listed_in AS genre, description 
@@ -82,5 +82,3 @@ class Movies:
         """
         result = self.connection_base(sqlite_querty)
         return result
-
-

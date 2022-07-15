@@ -1,18 +1,12 @@
 import json
-
-from flask import Flask, jsonify
+from flask import Flask
 from utils import Movies
 
 app = Flask(__name__)
 
 app.config['JSON_AS_ASCII'] = False
 
-
 my_movie = Movies()
-
-@app.route('/')
-def page_main():
-    return "Главная страничка"
 
 
 @app.route('/movie/<title>')
@@ -37,7 +31,7 @@ def page_range_year(first_year, second_year):
 
 @app.route('/rating/children')
 def page_children_rating():
-    # Детские фильмы
+    # Нет возрастных ограничений
     rating = "'G'"
     result = my_movie.get_by_rating(rating)
     return app.response_class(
@@ -79,4 +73,4 @@ def page_genre_name(genre):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
